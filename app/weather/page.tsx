@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store";
 import { setWeatherData } from "../store/weatherSlice";
+import WeatherCard from "./WeatherCard";
 
 const Weather: React.FC = () => {
   const location = useSelector((state: RootState) => state.weather.location);
@@ -36,18 +37,7 @@ const Weather: React.FC = () => {
   return (
     <div className="p-4">
       <h1 className="text-2xl">Weather Information for {location}</h1>
-      {weatherData ? (
-        <div>
-          <p>Temperature: {weatherData.temperature}°C</p>
-          <p>Humidity: {weatherData.humidity}%</p>
-          <p>Rain Accumulation: {weatherData.rain_accumulation} mm</p>
-          <p>Rain Intensity: {weatherData.rain_intensity} mm/h</p>
-          <p>Wind Speed: {weatherData.wind_speed} km/h</p>
-          <p>Wind Direction: {weatherData.wind_direction}°</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+      {weatherData ? <WeatherCard data={weatherData} /> : <p>Loading...</p>}
     </div>
   );
 };

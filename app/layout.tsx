@@ -1,6 +1,6 @@
 "use client";
 
-// import "../styles/globals.css";
+import "../styles/styles.css";
 import { Provider } from "react-redux";
 import store from "./store";
 

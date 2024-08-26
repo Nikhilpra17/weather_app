@@ -23,12 +23,12 @@ const SearchBar: React.FC = () => {
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="border p-2 rounded-l"
+        className="border border-gray-300 rounded-full text-sm p-3 h-10 w-96 focus:outline-none focus:ring focus:border-blue-300"
         placeholder="Search for a location"
       />
       <button
         onClick={handleSearch}
-        className="bg-blue-500 text-white p-2 rounded-r"
+        className="bg-google-blue text-white px-4 py-2 rounded-full ml-4 hover:bg-blue-700 transition-colors"
       >
         Search
       </button>
