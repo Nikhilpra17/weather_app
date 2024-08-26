@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store";
@@ -12,9 +11,25 @@ const Weather: React.FC = () => {
 
   useEffect(() => {
     if (location) {
-      fetch(`https://api.weatherunion.com/data?location=${location}`)
-        .then((response) => response.json())
-        .then((data) => dispatch(setWeatherData(data)));
+      const url = `https://www.weatherunion.com/gw/weather/external/v0/get_locality_weather_data?locality_id=ZWL001156`;
+
+      fetch(url, {
+        headers: {
+          "X-Zomato-Api-Key": "9fb3fb26b69d4292f8ae213088f20d98",
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          dispatch(setWeatherData(data.locality_weather_data));
+        })
+        .catch((error) => {
+          console.error("Failed to fetch weather data:", error);
+        });
     }
   }, [location, dispatch]);
 
@@ -23,9 +38,12 @@ const Weather: React.FC = () => {
       <h1 className="text-2xl">Weather Information for {location}</h1>
       {weatherData ? (
         <div>
-          <p>Temperature: {weatherData.temperature}</p>
-          <p>Condition: {weatherData.condition}</p>
-          {/* Add more weather details as needed */}
+          <p>Temperature: {weatherData.temperature}°C</p>
+          <p>Humidity: {weatherData.humidity}%</p>
+          <p>Rain Accumulation: {weatherData.rain_accumulation} mm</p>
+          <p>Rain Intensity: {weatherData.rain_intensity} mm/h</p>
+          <p>Wind Speed: {weatherData.wind_speed} km/h</p>
+          <p>Wind Direction: {weatherData.wind_direction}°</p>
         </div>
       ) : (
         <p>Loading...</p>
