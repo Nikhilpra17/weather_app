@@ -1,9 +1,11 @@
+"use client";
+
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { setLocation } from "../store/weatherSlice";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const SearchBar: React.FC = () => {
   const [query, setQuery] = useState("");
