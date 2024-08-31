@@ -12,6 +12,25 @@ import {
 } from "react-icons/wi";
 
 const WeatherCard: React.FC<{ data: any }> = ({ data }) => {
+  // Check for an error in the data
+  if (data.error) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-red-100 shadow-lg rounded-lg p-5 max-w-4xl w-full text-center"
+        >
+          <p className="text-2xl font-bold text-red-600">Error</p>
+          <p className="text-xl font-medium text-gray-700">
+            {data.error.message || "This place doesn't exist."}
+          </p>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <motion.div

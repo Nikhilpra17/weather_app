@@ -2,12 +2,13 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store";
-import { setWeatherData } from "../store/weatherSlice";
+import { setWeatherData, setError } from "../store/weatherSlice";
 import WeatherCard from "./WeatherCard";
 
 const Weather: React.FC = () => {
   const location = useSelector((state: RootState) => state.weather.location);
   const weatherData = useSelector((state: RootState) => state.weather.data);
+  const error = useSelector((state: RootState) => state.weather.error);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,10 +27,15 @@ const Weather: React.FC = () => {
           return response.json();
         })
         .then((data) => {
-          dispatch(setWeatherData(data.locality_weather_data));
+          if (data && data.locality_weather_data) {
+            dispatch(setWeatherData(data.locality_weather_data));
+          } else {
+            dispatch(setError("Location not found"));
+          }
         })
         .catch((error) => {
           console.error("Failed to fetch weather data:", error);
+          dispatch(setError("Failed to fetch weather data"));
         });
     }
   }, [location, dispatch]);
@@ -37,7 +43,13 @@ const Weather: React.FC = () => {
   return (
     <div className="p-4">
       <h1 className="text-2xl">Weather Information for {location}</h1>
-      {weatherData ? <WeatherCard data={weatherData} /> : <p>Loading...</p>}
+      {error ? (
+        <p className="text-red-500">{error}</p>
+      ) : weatherData ? (
+        <WeatherCard data={weatherData} />
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };
