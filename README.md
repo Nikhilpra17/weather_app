@@ -1,6 +1,6 @@
 # Weather Information Application
 
-![Description](screenshot/screen.gif)
+![Description](screenshot/screen1.gif)
 
 ## Project Overview
 
