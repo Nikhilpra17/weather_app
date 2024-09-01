@@ -12,7 +12,6 @@ import {
 } from "react-icons/wi";
 
 const WeatherCard: React.FC<{ data: any }> = ({ data }) => {
-  // Check for an error in the data
   if (data.error) {
     return (
       <div className="flex justify-center items-center min-h-screen">
