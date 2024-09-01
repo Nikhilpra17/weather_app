@@ -1,6 +1,6 @@
 # Weather Information Application
 
-![Description](screenshot/Recording 2024-09-01 at 14.48.17.gif)
+![Description](screenshot/screen.gif)
 
 ## Project Overview
 
